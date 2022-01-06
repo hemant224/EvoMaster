@@ -795,7 +795,7 @@ class GraphQLActionBuilderTest {
 
     }
 
-    @Disabled
+   // @Disabled
     @Test
     fun functionInReturnedObjectsTest() {
 
