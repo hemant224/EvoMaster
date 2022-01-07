@@ -795,10 +795,12 @@ class GraphQLActionBuilderTest {
 
     }
 
-    @Disabled
+    //@Disabled
     @Test
-    fun functionInReturnedObjectsTest() {
-
+    fun functionInReturnedObjectsWithOutBooleanSelectionWithPageInfoTest() {
+        /*
+        with pageInfo
+         */
         val actionCluster = mutableMapOf<String, Action>()
         val json = GraphQLActionBuilderTest::class.java.getResource("/graphql/anilist(Fragment1).json").readText()
 
@@ -811,43 +813,40 @@ class GraphQLActionBuilderTest {
         assertTrue(page.parameters[0] is GQInputParam)
         assertTrue((page.parameters[0].gene as OptionalGene).gene is IntegerGene)
         assertTrue(page.parameters[1] is GQReturnParam)
-        assertTrue(page.parameters[1].gene is ObjectGene)
-        val objPage = page.parameters[1].gene as ObjectGene
+
+        assertTrue((page.parameters[1].gene as OptionalGene).gene is ObjectGene)
+        val objPage = (page.parameters[1].gene as OptionalGene).gene as ObjectGene
+
 
         assertEquals(2, objPage.fields.size)
-        assertTrue(objPage.fields.any { it is OptionalGene && it.gene is ObjectGene && it.name == "pageInfo" })
+        assertTrue(objPage.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "pageInfo" })
        // assertTrue(objPage.fields.any { it is OptionalGene && it.gene is ObjectGene && it.name == "users" })
         assertTrue(objPage.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "users" })
 
-        val objPageInfo = (objPage.fields.first { it.name == "pageInfo" } as OptionalGene).gene as ObjectGene
+
+        val tuplePageInfo = (objPage.fields.first { it.name == "pageInfo" } as OptionalGene).gene as TupleGene
+        assertEquals(1, tuplePageInfo.elements.size)
+        assertTrue(tuplePageInfo.elements.any {it is OptionalGene &&  it.gene is ObjectGene && it.name == "pageInfo" })
+
+        val objPageInfo = (tuplePageInfo.elements.last() as OptionalGene).gene as ObjectGene
         assertEquals(1, objPageInfo.fields.size)
-        assertTrue(objPageInfo.fields.any { it is OptionalGene && it is BooleanGene && it.name == "total" })
-        /**/
-        //recuperate the tuple user
-        val tupleUser = (objPage.fields.first { it.name == "users" } as OptionalGene).gene as TupleGene
-        //add more assertions ?
-        assertEquals(1, tupleUser.elements.size)
-        assertTrue(tupleUser.elements.any { it is StringGene && it.name == "Search" })
-        //missing assertions
+        /*
+        the conception can be like this one
+        assertTrue(objPageInfo.fields.any { it is OptionalGene && it.gene is IntegerGene && it.name == "total" })
+         */
 
-        //recuperate the user obj: be careful it belongs to the tuple
-        val objUser = (objPage.fields.first { it.name == "users" } as OptionalGene).gene as ObjectGene
-        assertEquals(1, objUser.fields.size)
-        assertTrue(objUser.fields.any {it is OptionalGene && it is TupleGene && it.name == "about" })
-
-        //recuperate the tuple about
-        val tupleAbout = (objUser.fields.first { it.name == "about" } as OptionalGene).gene as TupleGene
-        //add more assertions ?
-        assertEquals(1, tupleUser.elements.size)
-        assertTrue(tupleUser.elements.any { it is StringGene && it.name == "AsHtml" })//nn optional
-
-
+        assertTrue(objPageInfo.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "total" })
+        val tupleTotal = (objPageInfo.fields.first { it.name == "total" } as OptionalGene).gene as TupleGene
+        assertEquals(1, tupleTotal.elements.size)
+        assertTrue(tupleTotal.elements.any {it is OptionalGene &&  it.gene is IntegerGene && it.name == "total" })
     }
 
     // @Disabled
     @Test
     fun functionInReturnedObjectsWithOutBooleanSelectionTest() {
-
+        /*
+        without pageInfo
+         */
         val actionCluster = mutableMapOf<String, Action>()
         val json = GraphQLActionBuilderTest::class.java.getResource("/graphql/anilist(Fragment1WithOutPageInfo).json").readText()
 
