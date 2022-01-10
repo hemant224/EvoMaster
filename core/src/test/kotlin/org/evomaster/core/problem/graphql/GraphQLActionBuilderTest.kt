@@ -7,7 +7,6 @@ import org.evomaster.core.search.Action
 import org.evomaster.core.search.gene.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 
@@ -797,12 +796,12 @@ class GraphQLActionBuilderTest {
 
     // @Disabled
     @Test
-    fun functionInReturnedObjectsWithOutBooleanSelectionTest() {
+    fun functionInReturnedObjectsWithOutBooleanSelectionWithUsersTest() {
         /*
         without pageInfo
          */
         val actionCluster = mutableMapOf<String, Action>()
-        val json = GraphQLActionBuilderTest::class.java.getResource("/graphql/anilist(Fragment1WithOutPageInfo).json").readText()
+        val json = GraphQLActionBuilderTest::class.java.getResource("/graphql/anilist(Fragment1Users).json").readText()
 
         val config = EMConfig()
         GraphQLActionBuilder.addActionsFromSchema(json, actionCluster, config.treeDepth)
@@ -844,7 +843,7 @@ class GraphQLActionBuilderTest {
         with pageInfo
          */
         val actionCluster = mutableMapOf<String, Action>()
-        val json = GraphQLActionBuilderTest::class.java.getResource("/graphql/anilist(Fragment1).json").readText()
+        val json = GraphQLActionBuilderTest::class.java.getResource("/graphql/anilist(Fragment1PageInfo).json").readText()
 
         val config = EMConfig()
         GraphQLActionBuilder.addActionsFromSchema(json, actionCluster, config.treeDepth)
