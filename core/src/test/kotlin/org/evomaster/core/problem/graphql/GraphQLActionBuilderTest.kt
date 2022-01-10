@@ -883,4 +883,111 @@ class GraphQLActionBuilderTest {
         assertTrue(tupleTotal.elements.any {it is OptionalGene &&  it.gene is IntegerGene && it.name == "total" })
     }
 
+    @Test
+    fun functionInReturnedObjectsWithOutBooleanSelectionWithPageInfo2Test() {
+        /*
+        with pageInfo2
+         */
+        val actionCluster = mutableMapOf<String, Action>()
+        val json = GraphQLActionBuilderTest::class.java.getResource("/graphql/anilist(Fragment1PageInfo2).json").readText()
+
+        val config = EMConfig()
+        GraphQLActionBuilder.addActionsFromSchema(json, actionCluster, config.treeDepth)
+
+        assertEquals(1, actionCluster.size)
+        val page = actionCluster.get("page") as GraphQLAction
+        assertEquals(2, page.parameters.size)
+        assertTrue(page.parameters[0] is GQInputParam)
+        assertTrue((page.parameters[0].gene as OptionalGene).gene is IntegerGene)
+        assertTrue(page.parameters[1] is GQReturnParam)
+
+        assertTrue((page.parameters[1].gene as OptionalGene).gene is ObjectGene)
+        val objPage = (page.parameters[1].gene as OptionalGene).gene as ObjectGene
+
+        assertEquals(3, objPage.fields.size)
+        assertTrue(objPage.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "pageInfo" })
+        assertTrue(objPage.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "users" })
+        assertTrue(objPage.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "pageInfo2" })
+
+        val tuplePageInfo = (objPage.fields.first { it.name == "pageInfo" } as OptionalGene).gene as TupleGene
+        assertEquals(1, tuplePageInfo.elements.size)
+        assertTrue(tuplePageInfo.elements.any {it is OptionalGene &&  it.gene is ObjectGene && it.name == "pageInfo" })
+
+        val objPageInfo = (tuplePageInfo.elements.last() as OptionalGene).gene as ObjectGene
+        assertEquals(1, objPageInfo.fields.size)
+        assertTrue(objPageInfo.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "total" })
+        val tupleTotal = (objPageInfo.fields.first { it.name == "total" } as OptionalGene).gene as TupleGene
+        assertEquals(1, tupleTotal.elements.size)
+        assertTrue(tupleTotal.elements.any {it is OptionalGene &&  it.gene is IntegerGene && it.name == "total" })
+
+        /*
+
+         */
+        val tuplePageInfo2 = (objPage.fields.first { it.name == "pageInfo2" } as OptionalGene).gene as TupleGene
+        assertEquals(1, tuplePageInfo2.elements.size)
+        assertTrue(tuplePageInfo2.elements.any {it is OptionalGene &&  it.gene is ObjectGene && it.name == "pageInfo2" })
+
+        val objPageInfo2 = (tuplePageInfo2.elements.last() as OptionalGene).gene as ObjectGene
+        assertEquals(1, objPageInfo2.fields.size)
+        assertTrue(objPageInfo2.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "total2" })
+        val tupleTotal2 = (objPageInfo2.fields.first { it.name == "total2" } as OptionalGene).gene as TupleGene
+        assertEquals(2, tupleTotal2.elements.size)
+        assertTrue(tupleTotal2.elements.any {it is OptionalGene &&  it.gene is IntegerGene && it.name == "id" })
+        assertTrue(tupleTotal2.elements.any {it is OptionalGene &&  it.gene is BooleanGene && it.name == "total2" })
+    }
+
+
+    @Test
+    fun functionInReturnedObjectsWithOutBooleanSelectionWithPageInfo3Test() {
+        /*
+        with pageInfo3
+         */
+        val actionCluster = mutableMapOf<String, Action>()
+        val json = GraphQLActionBuilderTest::class.java.getResource("/graphql/anilist(Fragment1PageInfo2).json").readText()
+
+        val config = EMConfig()
+        GraphQLActionBuilder.addActionsFromSchema(json, actionCluster, config.treeDepth)
+
+        assertEquals(1, actionCluster.size)
+        val page = actionCluster.get("page") as GraphQLAction
+        assertEquals(2, page.parameters.size)
+        assertTrue(page.parameters[0] is GQInputParam)
+        assertTrue((page.parameters[0].gene as OptionalGene).gene is IntegerGene)
+        assertTrue(page.parameters[1] is GQReturnParam)
+
+        assertTrue((page.parameters[1].gene as OptionalGene).gene is ObjectGene)
+        val objPage = (page.parameters[1].gene as OptionalGene).gene as ObjectGene
+
+        assertEquals(3, objPage.fields.size)
+        assertTrue(objPage.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "pageInfo" })
+        assertTrue(objPage.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "users" })
+        assertTrue(objPage.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "pageInfo2" })
+
+        val tuplePageInfo = (objPage.fields.first { it.name == "pageInfo" } as OptionalGene).gene as TupleGene
+        assertEquals(1, tuplePageInfo.elements.size)
+        assertTrue(tuplePageInfo.elements.any {it is OptionalGene &&  it.gene is ObjectGene && it.name == "pageInfo" })
+
+        val objPageInfo = (tuplePageInfo.elements.last() as OptionalGene).gene as ObjectGene
+        assertEquals(1, objPageInfo.fields.size)
+        assertTrue(objPageInfo.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "total" })
+        val tupleTotal = (objPageInfo.fields.first { it.name == "total" } as OptionalGene).gene as TupleGene
+        assertEquals(1, tupleTotal.elements.size)
+        assertTrue(tupleTotal.elements.any {it is OptionalGene &&  it.gene is IntegerGene && it.name == "total" })
+
+        /*
+
+         */
+        val tuplePageInfo2 = (objPage.fields.first { it.name == "pageInfo2" } as OptionalGene).gene as TupleGene
+        assertEquals(1, tuplePageInfo2.elements.size)
+        assertTrue(tuplePageInfo2.elements.any {it is OptionalGene &&  it.gene is ObjectGene && it.name == "pageInfo2" })
+
+        val objPageInfo2 = (tuplePageInfo2.elements.last() as OptionalGene).gene as ObjectGene
+        assertEquals(1, objPageInfo2.fields.size)
+        assertTrue(objPageInfo2.fields.any { it is OptionalGene && it.gene is TupleGene && it.name == "total2" })
+        val tupleTotal2 = (objPageInfo2.fields.first { it.name == "total2" } as OptionalGene).gene as TupleGene
+        assertEquals(2, tupleTotal2.elements.size)
+        assertTrue(tupleTotal2.elements.any {it is OptionalGene &&  it.gene is IntegerGene && it.name == "id" })
+        assertTrue(tupleTotal2.elements.any {it is OptionalGene &&  it.gene is BooleanGene && it.name == "total2" })
+    }
+
 }
