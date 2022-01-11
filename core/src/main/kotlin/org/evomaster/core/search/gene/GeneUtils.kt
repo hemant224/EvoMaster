@@ -495,7 +495,9 @@ object GeneUtils {
                     || (gene is ArrayGene<*> && gene.template is ObjectGene)
                     || (gene is ArrayGene<*> && gene.template is OptionalGene && gene.template.gene is ObjectGene)
                     || (gene is OptionalGene && gene.gene is ArrayGene<*> && gene.gene.template is OptionalGene && gene.gene.template.gene is ObjectGene)
-                    || (gene is OptionalGene && gene.gene is ArrayGene<*> && gene.gene.template is ObjectGene)
+                    || (gene is OptionalGene && gene.gene is ArrayGene<*> && gene.gene.template is ObjectGene
+                    || (gene is OptionalGene && gene.gene is TupleGene )
+                    )
 
     private fun handleBooleanSelection(gene: Gene): Gene {
 
@@ -512,9 +514,14 @@ object GeneUtils {
                     if (gene.gene is ArrayGene<*>) {
                         handleBooleanSelection(gene.gene.template)
                     } else {
-                        // on by default, but can be deselected during the search
-                        BooleanGene(gene.name, true)
+                        if (gene.gene is TupleGene){
+                            TupleGene(gene.name, gene.gene.elements.dropLast(1).plus(handleBooleanSelection(gene.gene.elements.last())))
+                        } else {
+                            // on by default, but can be deselected during the search
+                            BooleanGene(gene.name, true)
+                        }
                     }
+
                 }
             }
             is CycleObjectGene -> {
@@ -528,6 +535,9 @@ object GeneUtils {
                 ObjectGene(gene.name, gene.fields.map { handleBooleanSelection(it) })
             }
             is ArrayGene<*> -> handleBooleanSelection(gene.template)
+            is TupleGene -> {
+                               TupleGene(gene.name,gene.elements.dropLast(1).plus(handleBooleanSelection(gene.elements.last())))
+            }
             else -> {
                 BooleanGene(gene.name, true)
             }
