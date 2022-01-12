@@ -64,6 +64,7 @@
           "enumValues": null,
           "possibleTypes": null
         },
+
         {
           "kind": "OBJECT",
           "name": "Page",
@@ -74,6 +75,28 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "PageInfo",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pageInfo4",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pageInfo5",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "PageInfo5",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -95,6 +118,48 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "users3",
+              "args": [
+                {
+                  "name": "Search",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "store",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "Store",
+                          "ofType": null
+                        }
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User3",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -147,6 +212,7 @@
           "enumValues": null,
           "possibleTypes": null
         },
+
         {
           "kind": "OBJECT",
           "name": "PageInfo",
@@ -168,6 +234,7 @@
           "enumValues": null,
           "possibleTypes": null
         },
+
         {
           "kind": "OBJECT",
           "name": "PageInfo2",
@@ -199,6 +266,30 @@
           "enumValues": null,
           "possibleTypes": null
         },
+
+        {
+          "kind": "OBJECT",
+          "name": "PageInfo5",
+          "fields": [
+            {
+              "name": "total4",
+              "args": [
+              ],
+              "type": {
+                "kind": "ENUM",
+                "name": "EnumTestType",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+
         {
           "kind": "OBJECT",
           "name": "User",
@@ -208,6 +299,38 @@
               "args": [
                 {
                   "name": "AsHtml",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+
+        {
+          "kind": "OBJECT",
+          "name": "User3",
+          "fields": [
+            {
+              "name": "about3",
+              "args": [
+                {
+                  "name": "AsHtml2",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Boolean",
@@ -254,6 +377,7 @@
           "enumValues": null,
           "possibleTypes": null
         },
+
         {
           "kind": "OBJECT",
           "name": "PageInfo3",
@@ -341,8 +465,50 @@
           "possibleTypes": null
         },
 
+        {
+          "kind": "ENUM",
+          "name": "EnumTestType",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "TOTALENUM1",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TOTALENUM2",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
 
-
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "Store",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
 
 
 
