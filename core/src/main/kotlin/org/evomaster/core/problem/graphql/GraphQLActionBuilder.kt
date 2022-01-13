@@ -782,13 +782,13 @@ object GraphQLActionBuilder {
         //Note: if a return param is a primitive type it will be null
 
         //Get the boolean selection of the constructed return param
-        //   val returnGene = params.find { p -> p is GQReturnParam }?.gene
-        // val selection = returnGene?.let { GeneUtils.getBooleanSelection(it) }
+           val returnGene = params.find { p -> p is GQReturnParam }?.gene
+             val selection = returnGene?.let { GeneUtils.getBooleanSelection(it) }
 
         //remove the constructed return param
-        //params.remove(params.find { p -> p is GQReturnParam })
+        params.remove(params.find { p -> p is GQReturnParam })
         //add constructed return param selection instead
-        //selection?.name?.let { GQReturnParam(it, selection) }?.let { params.add(it) }
+        selection?.name?.let { GQReturnParam(it, selection) }?.let { params.add(it) }
 
         /*
             all fields are optional in GraphQL, so should always be possible to prevent cycles,
