@@ -5,13 +5,11 @@ import org.evomaster.core.database.DbActionUtils
 import org.evomaster.core.problem.api.service.ApiWsIndividual
 import org.evomaster.core.problem.external.service.ExternalServiceAction
 import org.evomaster.core.problem.rest.SampleType
-import org.evomaster.core.problem.rest.resource.RestResourceCalls
 import org.evomaster.core.search.Action
 import org.evomaster.core.search.ActionFilter
 import org.evomaster.core.search.Individual
 import org.evomaster.core.search.StructuralElement
 import org.evomaster.core.search.gene.Gene
-import org.evomaster.core.search.tracer.TraceableElementCopyFilter
 
 class GraphQLIndividual(
         val sampleType: SampleType,
@@ -33,9 +31,6 @@ class GraphQLIndividual(
 
     }
 
-    /**
-     * TODO: Verify the implmentation for ALL
-     */
     override fun seeGenes(filter: GeneFilter): List<out Gene> {
         return when (filter) {
             GeneFilter.ALL -> seeInitializingActions().flatMap(Action::seeGenes).plus(seeActions().flatMap(Action::seeGenes))
@@ -55,9 +50,6 @@ class GraphQLIndividual(
 
     fun getIndexedCalls(): Map<Int,GraphQLAction> = getIndexedChildren(GraphQLAction::class.java)
 
-    /**
-     * TODO: Verify the implmentation for ALL
-     */
     override fun seeActions(filter: ActionFilter): List<out Action> {
         return when(filter){
             ActionFilter.ALL -> children as List<Action>
